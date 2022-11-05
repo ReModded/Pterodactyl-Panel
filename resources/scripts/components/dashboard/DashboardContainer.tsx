@@ -24,6 +24,11 @@ export default () => {
     const rootAdmin = useStoreState(state => state.user.data!.rootAdmin);
     const [showOnlyAdmin, setShowOnlyAdmin] = usePersistedState(`${uuid}:show_all_servers`, false);
 
+    const [ showGroup, setGroup ] = usePersistedState(`${uuid}:show_group`, '*');
+    const groups = [
+        '*', 'Cave', 'Terestia', 'Argentia', 'Friends', 'Dev', 'Services', 'Others',
+    ];
+
     const { data: servers, error } = useSWR<PaginatedResult<Server>>(
         ['/api/client/servers', showOnlyAdmin && rootAdmin, page],
         () => getServers({ page, type: showOnlyAdmin && rootAdmin ? 'admin' : undefined }),
@@ -60,6 +65,16 @@ export default () => {
                         defaultChecked={showOnlyAdmin}
                         onChange={() => setShowOnlyAdmin(s => !s)}
                     />
+                    <select css={tw`flex-1 sm:flex-none rounded bg-neutral-900 ml-2`}
+                              value={showGroup}
+                              onChange={e => setGroup(e.currentTarget.value)}
+                    >
+                        {groups.map(group => (
+                            <option key={ group } value={ group }>
+                                { group }
+                            </option>
+                        ))}
+                    </select>
                 </div>
             )}
             {!servers ? (
@@ -68,9 +83,12 @@ export default () => {
                 <Pagination data={servers} onPageSelect={setPage}>
                     {({ items }) =>
                         items.length > 0 ? (
-                            items.map((server, index) => (
-                                <ServerRow key={server.uuid} server={server} css={index > 0 ? tw`mt-2` : undefined} />
-                            ))
+                            items
+                                .filter(server => (!rootAdmin || showGroup === groups[0] || server.description?.includes(showGroup || '')))
+                                .map((server, index) => (
+                                    <ServerRow key={server.uuid} server={server} css={index > 0 ? tw`mt-2` : undefined} />
+                                )
+                            )
                         ) : (
                             <p css={tw`text-center text-sm text-neutral-400`}>
                                 {showOnlyAdmin
