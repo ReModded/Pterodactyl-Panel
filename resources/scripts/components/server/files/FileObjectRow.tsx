@@ -14,6 +14,7 @@ import { usePermissions } from '@/plugins/usePermissions';
 import { join } from 'path';
 import { bytesToString } from '@/lib/formatters';
 import styles from './style.module.css';
+import FileObjectName from "@/components/server/files/FileObjectName";
 
 const Clickable: React.FC<{ file: FileObject }> = memo(({ file, children }) => {
     const [canRead] = usePermissions(['file.read']);
@@ -54,7 +55,8 @@ const FileObjectRow = ({ file }: { file: FileObject }) => (
                     <FontAwesomeIcon icon={faFolder} />
                 )}
             </div>
-            <div css={tw`flex-1 truncate`}>{file.name}</div>
+            <FileObjectName file={file} />
+            {/*<div css={tw`flex-1 truncate`}>{file.name}</div>*/}
             {file.isFile && <div css={tw`w-1/6 text-right mr-4 hidden sm:block`}>{bytesToString(file.size)}</div>}
             <div css={tw`w-1/5 text-right mr-4 hidden md:block`} title={file.modifiedAt.toString()}>
                 {Math.abs(differenceInHours(file.modifiedAt, new Date())) > 48
