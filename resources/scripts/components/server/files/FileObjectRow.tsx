@@ -17,6 +17,7 @@ import { usePermissions } from '@/plugins/usePermissions';
 import { ServerContext } from '@/state/server';
 import styles from './style.module.css';
 import FileObjectName from "@/components/server/files/FileObjectName";
+import FileObjectHoverMenu from "@/components/server/files/FileObjectHoverMenu";
 
 function Clickable({ file, children }: { file: FileObject; children: ReactNode }) {
     const [canRead] = usePermissions(['file.read']);
@@ -69,6 +70,7 @@ function FileObjectRow({ file }: { file: FileObject }) {
                 </div>
             </MemoizedClickable>
             <FileDropdownMenu file={file} />
+            <FileObjectHoverMenu file={file} />
         </div>
     );
 }
