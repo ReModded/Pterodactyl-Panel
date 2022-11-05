@@ -65,9 +65,9 @@ export default () => {
                         defaultChecked={showOnlyAdmin}
                         onChange={() => setShowOnlyAdmin((s) => !s)}
                     />
-                    <select css={tw`flex-1 sm:flex-none rounded bg-neutral-900 ml-2`}
-                              value={showGroup}
-                              onChange={e => setGroup(e.currentTarget.value)}
+                    <select css={tw`flex-1 sm:flex-none rounded bg-neutral-900 ml-2 py-[7px] px-3`}
+                            value={showGroup}
+                            onChange={e => setGroup(e.currentTarget.value)}
                     >
                         {groups.map(group => (
                             <option key={ group } value={ group }>
