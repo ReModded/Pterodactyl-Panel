@@ -15,6 +15,7 @@ import { join } from 'path';
 import { bytesToString } from '@/lib/formatters';
 import styles from './style.module.css';
 import FileObjectName from "@/components/server/files/FileObjectName";
+import FileObjectHoverMenu from "@/components/server/files/FileObjectHoverMenu";
 
 const Clickable: React.FC<{ file: FileObject }> = memo(({ file, children }) => {
     const [canRead] = usePermissions(['file.read']);
@@ -65,6 +66,7 @@ const FileObjectRow = ({ file }: { file: FileObject }) => (
             </div>
         </Clickable>
         <FileDropdownMenu file={file} />
+        <FileObjectHoverMenu file={file} />
     </div>
 );
 
