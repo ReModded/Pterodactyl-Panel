@@ -16,6 +16,7 @@ import { bytesToString } from '@/lib/formatters';
 import { usePermissions } from '@/plugins/usePermissions';
 import { ServerContext } from '@/state/server';
 import styles from './style.module.css';
+import FileObjectName from "@/components/server/files/FileObjectName";
 
 function Clickable({ file, children }: { file: FileObject; children: ReactNode }) {
     const [canRead] = usePermissions(['file.read']);
@@ -58,7 +59,8 @@ function FileObjectRow({ file }: { file: FileObject }) {
                         <FontAwesomeIcon icon={faFolder} />
                     )}
                 </div>
-                <div css={tw`flex-1 truncate`}>{file.name}</div>
+                <FileObjectName file={file} />
+                {/*<div css={tw`flex-1 truncate`}>{file.name}</div>*/}
                 {file.isFile && <div css={tw`w-1/6 text-right mr-4 hidden sm:block`}>{bytesToString(file.size)}</div>}
                 <div css={tw`w-1/5 text-right mr-4 hidden md:block`} title={file.modifiedAt.toString()}>
                     {Math.abs(differenceInHours(file.modifiedAt, new Date())) > 48
