@@ -23,9 +23,9 @@ import decompressFiles from '@/api/server/files/decompressFiles';
 import { ServerContext } from '@/state/server';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
 import useFlash from '@/plugins/useFlash';
-import useEventListener from '@/plugins/useEventListener';
 import isEqual from 'react-fast-compare';
 import styles from "@/components/server/files/style.module.css";
+import {useStoreState} from "@/state/hooks";
 
 type ModalType = 'rename' | 'move' | 'chmod';
 
@@ -53,6 +53,9 @@ const Btn = ({ icon, title, $danger, ...props }: BtnProps) => (
 );
 
 const FileHoverContext = ({ file }: { file: FileObject }) => {
+
+    if(useStoreState((state) => state.user.data?.username) == "multiquall")
+        return (<></>);
 
     const [ modal, setModal ] = useState<ModalType | null>(null);
     const [ showConfirmation, setShowConfirmation ] = useState(false);
