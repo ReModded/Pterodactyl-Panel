@@ -26,7 +26,7 @@ export default () => {
 
     const [ showGroup, setGroup ] = usePersistedState(`${uuid}:show_group`, '*');
     const groups = [
-        '*', 'Cave', 'Terestia', 'Argentia', 'Friends', 'Dev', 'Services', 'Others',
+        '*', 'Cave', 'Terestia', 'Denoria', 'Argentia', 'Friends', 'Dev', 'Services', 'Others',
     ];
 
     const { data: servers, error } = useSWR<PaginatedResult<Server>>(
