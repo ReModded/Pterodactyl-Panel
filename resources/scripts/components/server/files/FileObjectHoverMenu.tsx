@@ -16,7 +16,7 @@ import RenameFileModal from '@/components/server/files/RenameFileModal';
 import Can from '@/components/elements/Can';
 import deleteFiles from '@/api/server/files/deleteFiles';
 import copyFile from '@/api/server/files/copyFile';
-import { join } from 'path';
+import { join } from 'pathe';
 import getFileDownloadUrl from '@/api/server/files/getFileDownloadUrl';
 import compressFiles from '@/api/server/files/compressFiles';
 import decompressFiles from '@/api/server/files/decompressFiles';
